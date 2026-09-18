@@ -87,7 +87,7 @@ export const EXPERIENCE: ExperienceItem[] = [
 export const SOCIALS: SocialLink[] = [
   { label: "GitHub", href: "https://github.com/RoyalBong", handle: "@RoyalBong" },
   { label: "LinkedIn", href: "https://www.linkedin.com/", handle: "Shayan Dutta" },
-  { label: "Email", href: "mailto:hello@shayandutta.dev", handle: "hello@shayandutta.dev" },
+  { label: "Email", href: "mailto:shayandutta97@gmail.com", handle: "shayandutta97@gmail.com" },
 ];
 
 
