@@ -1,215 +1,354 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --glass-bg: rgba(255, 255, 255, 0.14);
-  --glass-bg-strong: rgba(255, 255, 255, 0.22);
-  --glass-border: rgba(255, 255, 255, 0.38);
-  --glass-border-soft: rgba(255, 255, 255, 0.18);
-  --glass-highlight: rgba(255, 255, 255, 0.55);
-  --glass-shadow: rgba(15, 23, 42, 0.35);
-  --blob-1: #6366f1;
-  --blob-2: #38bdf8;
-  --blob-3: #c084fc;
+/* Wire the `dark:` variant to the class we toggle on <html>.
+   Without this Tailwind v4 falls back to prefers-color-scheme and the
+   manual theme toggle silently stops working. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ---------------------------------------------------------------
+   Design tokens. Light is the default; dark overrides below.
+   Every component reads these instead of hardcoding white/black,
+   so both themes stay legible.
+   --------------------------------------------------------------- */
+
+:root,
+:root.light,
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #f4f6fb;
+  --foreground: #0b1220;
+  --card: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(11, 18, 32, 0.1);
+  --surface: rgba(11, 18, 32, 0.04);
+  --surface-strong: rgba(11, 18, 32, 0.08);
+  --surface-hover: rgba(11, 18, 32, 0.12);
+  --border-subtle: rgba(11, 18, 32, 0.14);
+  --accent: #4f46e5;
+  --accent-soft: #6d28d9;
+  --scrim: rgba(11, 18, 32, 0.5);
+  --shadow-card: 0 12px 40px rgba(15, 23, 42, 0.1);
+  --grad-1: #4338ca;
+  --grad-2: #7c3aed;
+  --grad-3: #0891b2;
+  --blob-1: #818cf8;
+  --blob-2: #7dd3fc;
+  --blob-3: #d8b4fe;
+  --blob-opacity: 0.42;
 }
 
-/* Theme ambient colors (iOS-style shifting wallpapers) */
-[data-theme="modern"] {
-  --blob-1: #6366f1;
-  --blob-2: #38bdf8;
-  --blob-3: #a5b4fc;
+:root.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0b1120;
+  --foreground: #f1f5f9;
+  --card: rgba(255, 255, 255, 0.07);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --surface-hover: rgba(255, 255, 255, 0.16);
+  --border-subtle: rgba(255, 255, 255, 0.16);
+  --accent: #93c5fd;
+  --accent-soft: #c4b5fd;
+  --scrim: rgba(2, 6, 23, 0.7);
+  --shadow-card: 0 12px 40px rgba(2, 6, 23, 0.35);
+  --grad-1: #60a5fa;
+  --grad-2: #a78bfa;
+  --grad-3: #67e8f9;
+  --blob-1: #4f46e5;
+  --blob-2: #0ea5e9;
+  --blob-3: #a855f7;
+  --blob-opacity: 0.5;
 }
 
-[data-theme="cinema"] {
-  --blob-1: #dc2626;
-  --blob-2: #450a0a;
-  --blob-3: #7f1d1d;
+html {
+  scroll-behavior: smooth;
+  /* Keep anchored sections clear of the fixed navbar */
+  scroll-padding-top: 96px;
 }
 
-[data-theme="commerce"] {
-  --blob-1: #2563eb;
-  --blob-2: #facc15;
-  --blob-3: #0ea5e9;
+section[id] {
+  scroll-margin-top: 88px;
 }
 
-[data-theme="social"] {
-  --blob-1: #ec4899;
-  --blob-2: #a855f7;
-  --blob-3: #fb923c;
+/* --- Lenis ---------------------------------------------------------------
+   Official integration rules. `.lenis-smooth` must reset scroll-behavior or
+   the browser's smooth scrolling fights Lenis and stutters. */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-[data-theme="dynamic"] {
-  --blob-1: #10b981;
-  --blob-2: #14b8a6;
-  --blob-3: #059669;
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
 }
 
-/* Animated liquid mesh background */
-.liquid-page {
-  position: relative;
-  min-height: 100vh;
-  isolation: isolate;
-}
-
-.liquid-bg {
+.page-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: linear-gradient(145deg, #0c1222 0%, #1e1b4b 40%, #0f172a 100%);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.18), transparent),
+    var(--background);
+  transition: background 0.4s ease;
 }
 
-.liquid-bg::before {
-  content: "";
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: var(--blob-opacity);
+  will-change: transform;
+  animation: drift 22s ease-in-out infinite;
+}
+
+.hero-blob-1 {
+  width: min(55vw, 460px);
+  height: min(55vw, 460px);
+  background: var(--blob-1);
+  top: -10%;
+  left: -8%;
+}
+
+.hero-blob-2 {
+  width: min(48vw, 400px);
+  height: min(48vw, 400px);
+  background: var(--blob-2);
+  top: 20%;
+  right: -12%;
+  animation-delay: -8s;
+}
+
+.hero-grid {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.08), transparent);
-  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
 }
 
-.liquid-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
-  animation: liquid-float 22s ease-in-out infinite;
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, 6%) scale(1.08); }
+  66% { transform: translate(-5%, 3%) scale(0.94); }
+}
+
+/* -----------------------------------------------------------------
+   Reusable themed primitives.
+   Components use these instead of ad-hoc `bg-white/10` / `text-white`,
+   which are invisible or unreadable against the light background.
+   ----------------------------------------------------------------- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.surface-hover:hover {
+  background: var(--surface-hover);
+}
+
+/* Pill for tags, filters and meta chips */
+.chip {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.chip-active {
+  background: var(--foreground);
+  border-color: transparent;
+  color: var(--background);
+}
+
+/* Buttons keep high contrast in both themes */
+.btn-primary {
+  background: var(--foreground);
+  color: var(--background);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.35s ease;
+}
+
+.btn-ghost {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--foreground);
+  transition: background-color 0.2s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-hover);
+}
+
+.icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  color: var(--foreground);
+  transition: background-color 0.2s ease, border-color 0.35s ease, transform 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: var(--surface-hover);
+  transform: scale(1.05);
+}
+
+/* Form fields */
+.field {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--foreground);
+  transition: background-color 0.35s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  outline: none;
+}
+
+/* Section eyebrow — replaces text-blue-300, which failed contrast on light */
+.eyebrow {
+  color: var(--accent);
+}
+
+.text-gradient {
+  background-image: linear-gradient(115deg, var(--grad-1), var(--grad-2), var(--grad-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Full-screen menus tinted from the active theme instead of hardcoded slate */
+.overlay {
+  background: color-mix(in srgb, var(--background) 94%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.scrim {
+  background: var(--scrim);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.skeleton {
+  background: var(--surface-strong);
+}
+
+.divider {
+  border-color: var(--border-subtle);
+}
+
+.tilt {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   will-change: transform;
 }
 
-.liquid-blob-1 {
-  width: min(55vw, 420px);
-  height: min(55vw, 420px);
-  background: var(--blob-1);
-  top: -8%;
-  left: -6%;
-  animation-delay: 0s;
+.tilt:hover {
+  transform: translateY(-6px) perspective(800px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 24px 60px var(--scrim);
 }
 
-.liquid-blob-2 {
-  width: min(50vw, 380px);
-  height: min(50vw, 380px);
-  background: var(--blob-2);
-  top: 35%;
-  right: -10%;
-  animation-delay: -7s;
-}
-
-.liquid-blob-3 {
-  width: min(45vw, 340px);
-  height: min(45vw, 340px);
-  background: var(--blob-3);
-  bottom: -5%;
-  left: 25%;
-  animation-delay: -14s;
-}
-
-@keyframes liquid-float {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(4%, 6%) scale(1.08);
-  }
-  66% {
-    transform: translate(-5%, 3%) scale(0.94);
-  }
-}
-
-/* iOS liquid glass surfaces */
-.liquid-glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 8px 32px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 var(--glass-border-soft);
-}
-
-.liquid-glass-strong {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(48px) saturate(200%);
-  -webkit-backdrop-filter: blur(48px) saturate(200%);
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 12px 40px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 var(--glass-border-soft);
-}
-
-.liquid-glass-subtle {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid var(--glass-border-soft);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.liquid-glass-pill {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border-soft);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-
-.liquid-glass-input {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  border: 1px solid var(--glass-border-soft);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.liquid-glass-input:focus {
-  border-color: var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 3px rgba(255, 255, 255, 0.12);
-}
-
-.liquid-glass-btn {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 4px 16px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight);
-}
-
-.liquid-glass-btn:hover {
-  background: rgba(255, 255, 255, 0.28);
+.magnetic {
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .liquid-blob {
-    animation: none;
+  html { scroll-behavior: auto; }
+  .hero-blob { animation: none; }
+  .tilt:hover { transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-@layer utilities {
-  .hover-lift {
-    @apply transition-all duration-300 ease-out motion-safe:hover:-translate-y-1.5 motion-safe:hover:scale-[1.01];
+/* ---------------------------------------------------------------
+   Mobile performance.
+   backdrop-filter and filter: blur() are re-evaluated by the compositor
+   on every frame, and both .hero-blob layers animate forever - so every
+   .card overlapping them gets its backdrop re-blurred continuously. A
+   desktop GPU absorbs that; a throttled mobile CPU does not (Lighthouse
+   Style & Layout: 4.87s on mobile vs 0.54s on desktop). Below the tablet
+   breakpoint we drop the filters and paint the solid colour they were
+   standing in for, computed from the theme tokens so both themes stay
+   correct without hardcoded hex.
+   --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .card {
+    background: color-mix(in srgb, var(--foreground) 7%, var(--background));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
-  .hover-lift-strong {
-    @apply transition-all duration-300 ease-out motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02];
+  .overlay,
+  .scrim {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Static blobs: same look, no per-frame work. */
+  .hero-blob {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Second mobile pass: with the compositor work gone the dominant remaining
+   cost is initial paint. A 90px blur over a 460px layer, a radial-gradient
+   mask across the whole viewport and a masked grid all have to be
+   rasterised before first paint, so on small screens we soften the blur and
+   drop the purely decorative layers. */
+@media (max-width: 767px) {
+  .hero-blob {
+    filter: blur(56px);
+  }
+
+  /* Purely decorative, and the mask forces an extra composited layer. */
+  .hero-grid {
+    display: none;
+  }
+
+  /* Flat colour instead of a full-viewport radial gradient. */
+  .page-bg {
+    background: var(--background);
   }
 }

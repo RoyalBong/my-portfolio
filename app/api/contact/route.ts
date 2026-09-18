@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     // If all validation passes, return success
     return NextResponse.json({ success: true, message: "Message received." });
-  } catch (e) {
+  } catch {
     return NextResponse.json(
       { success: false, error: "Invalid JSON or server error." },
       { status: 400 }
