@@ -4,17 +4,15 @@ import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
-import { TechNews } from "@/components/sections/TechNews";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <About />
-      <Projects />
       <Skills />
+      <Projects />
       <Experience />
-      <TechNews />
       <Contact />
     </>
   );

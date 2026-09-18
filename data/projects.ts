@@ -43,11 +43,10 @@ export const PROJECTS: Project[] = [
 ];
 
 export const ABOUT_TEXT =
-  "Innovative DevOps enthusiast and cloud technology explorer with experience in building scalable backend applications using Java Spring Boot. Adept in cloud deployments, CI/CD automation, Linux server administration, containerization, and microservices architecture.";
+  "Cloud Engineer with experience in DevOps, building automation pipelines for efficient application development and deployment using containerization technology. Building hands-on expertise through projects in cloud, primarily AWS.";
 
 export const ABOUT_FACTS = [
-  { label: "Focus", value: "Backend - DevOps - Cloud" },
-  { label: "Stack", value: "Java - Spring Boot - Docker" },
-  { label: "Ops", value: "Jenkins - Linux - AWS" },
-  { label: "Currently", value: "Shipping + learning in public" },
+  { label: "Focus", value: "Cloud - Spec Driven Development - Full Stack Development using AI" },
+  { label: "Ops", value: "AWS EC2 - Lambda - S3 - DynamoDB - IAM - Git - GitHub Actions - Linux" },
+  { label: "Currently", value: "Spec Driven Development + Cloud Deployment" },
 ];

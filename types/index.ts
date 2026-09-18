@@ -14,16 +14,9 @@ export interface Project {
   featured?: boolean;
 }
 
-export interface SkillGroup {
+export interface SkillSection {
   title: string;
-  description: string;
-  skills: Skill[];
-}
-
-export interface Skill {
-  name: string;
-  level: number;
-  detail: string;
+  items: string[];
 }
 
 export interface ExperienceItem {

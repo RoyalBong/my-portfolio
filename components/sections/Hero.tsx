@@ -15,7 +15,7 @@ export function Hero() {
         <div className="hero-grid" />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export function Hero() {
               <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
             </span>
-            Available for internships
+            Available for full-time opportunities
           </motion.div>
 
           <motion.p
@@ -54,8 +54,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.24 }}
             className="mt-5 max-w-xl text-lg opacity-80 md:text-xl"
           >
-            {SITE.role} — building scalable backends with Java Spring Boot and shipping
-            containers with Docker + CI/CD.
+            I am a {SITE.role}, building hands-on expertise through projects in cloud, primarily
+            AWS. Developed Applications Using AI (Spec Driven Development).
           </motion.p>
 
           <motion.div
@@ -88,14 +88,29 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.94, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="relative mx-auto w-full max-w-sm"
+          className="relative mx-auto w-full max-w-[280px]"
         >
-          <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/30 via-violet-500/20 to-cyan-400/20 blur-2xl" aria-hidden="true" />
-          <div className="card tilt relative overflow-hidden rounded-[2rem]">
-            <ProfileImage className="aspect-[4/5] w-full" imgClassName="h-full w-full" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-5 pt-12 text-left">
-              <p className="text-sm font-bold text-white">{SITE.name}</p>
-              <p className="text-xs text-white/70">{SITE.role}</p>
+          <div
+            className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-blue-500/30 via-violet-500/20 to-cyan-400/20 blur-2xl"
+            aria-hidden="true"
+          />
+          <div className="card tilt relative flex flex-col items-center gap-5 rounded-3xl px-6 py-8 text-center">
+            <div className="relative">
+              <div
+                className="absolute -inset-3 rounded-full bg-gradient-to-br from-blue-500/45 via-violet-500/35 to-cyan-400/35 blur-xl"
+                aria-hidden="true"
+              />
+              <div className="relative rounded-full bg-gradient-to-br from-blue-500 to-violet-600 p-[3px] shadow-xl">
+                <ProfileImage
+                  className="size-36 rounded-full sm:size-40"
+                  imgClassName="h-full w-full"
+                  sizes="160px"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-bold">{SITE.name}</p>
+              <p className="mt-1 text-xs opacity-70">{SITE.role}</p>
             </div>
           </div>
         </motion.div>

@@ -1,14 +1,14 @@
-import type { ExperienceItem, SkillGroup, SocialLink } from "@/types";
+import type { ExperienceItem, SkillSection, SocialLink } from "@/types";
 
 export const SITE = {
   name: "Shayan Dutta",
-  role: "DevOps & Cloud Enthusiast",
-  tagline: "Java / Spring Boot - Cloud - CI/CD & Containers",
+  role: "Cloud Architect Enthusiast",
+  tagline: "Cloud - AWS - Spec Driven Development",
   location: "India",
   email: "hello@shayandutta.dev",
   github: "https://github.com/RoyalBong",
   description:
-    "DevOps and Cloud enthusiast building scalable backends with Java Spring Boot.",
+    "Cloud Architect Enthusiast building hands-on expertise through projects in cloud, primarily AWS.",
   url: "https://royalbong.github.io/my-portfolio",
 };
 
@@ -24,35 +24,22 @@ export const NAV_LINKS = [
 /** Stable array identity so the observer hook can depend on it directly. */
 export const NAV_IDS: string[] = NAV_LINKS.map((l) => l.id);
 
-export const SKILL_GROUPS: SkillGroup[] = [
+export const SKILL_SECTIONS: SkillSection[] = [
   {
-    title: "Backend",
-    description: "APIs and services that stay up when it matters.",
-    skills: [
-      { name: "Java", level: 88, detail: "Spring Boot, JPA, REST design" },
-      { name: "Spring Boot", level: 86, detail: "Microservices, Security" },
-      { name: "REST / Microservices", level: 84, detail: "Resilient boundaries" },
-      { name: "SQL", level: 72, detail: "Schema design, queries" },
+    title: "Cloud & DevOps",
+    items: [
+      "AWS (EC2, S3, DynamoDB)",
+      "Docker",
+      "IaC",
+      "Jenkins",
+      "Git",
+      "CI/CD Pipelines",
+      "Linux",
     ],
   },
   {
-    title: "DevOps & Cloud",
-    description: "From commit to container to cloud.",
-    skills: [
-      { name: "Docker", level: 85, detail: "Multi-stage builds, compose" },
-      { name: "Jenkins", level: 80, detail: "Declarative pipelines" },
-      { name: "AWS", level: 74, detail: "EC2, S3, IAM basics" },
-      { name: "Linux", level: 82, detail: "Server admin, shell" },
-    ],
-  },
-  {
-    title: "Frontend",
-    description: "Clean, fast interfaces in React.",
-    skills: [
-      { name: "React / Next.js", level: 78, detail: "App Router, SSR" },
-      { name: "TypeScript", level: 75, detail: "Typed APIs" },
-      { name: "Tailwind CSS", level: 82, detail: "Design systems" },
-    ],
+    title: "Tools & Analysis",
+    items: ["MS Excel", "SQL", "Reporting", "Data Analysis"],
   },
 ];
 
