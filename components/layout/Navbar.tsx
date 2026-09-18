@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { NAV_IDS, NAV_LINKS, SITE } from "@/data/portfolio";
@@ -13,6 +14,10 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const active = useActiveSection(NAV_IDS);
+  const pathname = usePathname();
+  // Section anchors only exist on the home page, so from a sub-page such as
+  // /projects/[slug] they have to be rooted for the link to still land.
+  const anchor = (href: string) => (pathname === "/" ? href : `/${href}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,7 +44,7 @@ export function Navbar() {
             scrolled ? "card mx-3 sm:mx-auto" : "border border-transparent"
           )}
         >
-          <a href="#home" className="group flex items-center gap-2.5">
+          <a href={anchor("#home")} className="group flex items-center gap-2.5">
             <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3">
               S
             </span>
@@ -53,7 +58,7 @@ export function Navbar() {
             {NAV_LINKS.map((l) => (
               <li key={l.id}>
                 <a
-                  href={l.href}
+                  href={anchor(l.href)}
                   aria-current={active === l.id ? "true" : undefined}
                   className={cn(
                     "magnetic relative rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 hover:scale-[1.04] hover:bg-[var(--surface)]",
@@ -85,7 +90,7 @@ export function Navbar() {
               <Moon className="block size-4 dark:hidden" />
             </button>
             <a
-              href="#contact"
+              href={anchor("#contact")}
               className="btn-primary magnetic hidden rounded-full px-4 py-2 text-sm font-semibold hover:scale-105 hover:shadow-xl active:scale-95 md:inline-flex"
             >
               Hire me
@@ -125,7 +130,7 @@ export function Navbar() {
               {NAV_LINKS.map((l, i) => (
                 <motion.a
                   key={l.id}
-                  href={l.href}
+                  href={anchor(l.href)}
                   onClick={() => setOpen(false)}
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}

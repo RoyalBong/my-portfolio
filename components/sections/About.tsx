@@ -1,6 +1,6 @@
 "use client";
 
-import { ABOUT_FACTS, ABOUT_TEXT } from "@/data/projects";
+import { ABOUT_FACTS, ABOUT_TEXT } from "@/data/portfolio";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function About() {

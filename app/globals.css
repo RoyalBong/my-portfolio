@@ -273,6 +273,15 @@ body {
   background: var(--surface-strong);
 }
 
+/* Monospace block for directory trees / shell output on project pages */
+.code-block {
+  background: var(--surface-strong);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  color: var(--foreground);
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
 .divider {
   border-color: var(--border-subtle);
 }

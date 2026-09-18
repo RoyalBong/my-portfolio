@@ -90,4 +90,14 @@ export const SOCIALS: SocialLink[] = [
   { label: "Email", href: "mailto:shayandutta97@gmail.com", handle: "shayandutta97@gmail.com" },
 ];
 
+export const ABOUT_TEXT =
+  "Cloud Engineer with experience in DevOps, building automation pipelines for efficient application development and deployment using containerization technology. Building hands-on expertise through projects in cloud, primarily AWS.";
+
+/** The Focus / Ops / Currently cards beside the About copy. */
+export const ABOUT_FACTS = [
+  { label: "Focus", value: "Cloud - Spec Driven Development - Full Stack Development using AI" },
+  { label: "Ops", value: "AWS EC2 - Lambda - S3 - DynamoDB - IAM - Git - GitHub Actions - Linux" },
+  { label: "Currently", value: "Spec Driven Development + Cloud Deployment" },
+];
+
 

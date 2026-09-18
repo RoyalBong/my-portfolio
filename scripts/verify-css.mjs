@@ -23,6 +23,7 @@ const checks = [
   [".text-gradient", /text-gradient/],
   [".field", /\.field/],
   [".skeleton", /\.skeleton/],
+  [".code-block", /\.code-block/],
   [".chip-active", /chip-active/],
   ["color-mix()", /color-mix/],
   ["reduced-motion guard", /prefers-reduced-motion/],
