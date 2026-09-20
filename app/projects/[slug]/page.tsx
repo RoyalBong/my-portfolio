@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { PROJECTS, getProjectBySlug } from "@/data/projects";
@@ -54,6 +55,26 @@ export default async function ProjectPage({ params }: ProjectRouteProps) {
           </div>
         </section>
       </Reveal>
+
+      {project.architectureImage && (
+        <Reveal delay={0.15} className="mt-6">
+          <figure className="card rounded-3xl p-7 md:p-9">
+            <Image
+              src={project.architectureImage}
+              alt={project.architectureCaption ?? `${project.title} architecture diagram`}
+              width={1244}
+              height={1695}
+              sizes="(max-width: 768px) 100vw, 672px"
+              className="mx-auto h-auto w-full max-w-2xl rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-strong)] object-contain"
+            />
+            {project.architectureCaption && (
+              <figcaption className="mx-auto mt-3 max-w-2xl text-center text-xs leading-relaxed opacity-60">
+                {project.architectureCaption}
+              </figcaption>
+            )}
+          </figure>
+        </Reveal>
+      )}
 
       <Reveal delay={0.18} className="mt-6">
         <section className="card rounded-3xl p-7 md:p-9">

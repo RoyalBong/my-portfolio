@@ -25,6 +25,10 @@ export interface Project {
   accent?: string;
   /** Year badge on the card header. */
   year?: string;
+  /** Optional architecture diagram image under /public/projects/. */
+  architectureImage?: string;
+  /** Optional caption rendered beneath the architecture diagram. */
+  architectureCaption?: string;
 }
 
 export interface SkillSection {

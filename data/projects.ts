@@ -57,6 +57,9 @@ uvicorn main:app --host 0.0.0.0 --port 8000`,
     category: ["AI", "Fullstack", "DevOps"],
     accent: "from-violet-600 via-indigo-600 to-slate-900",
     year: "2026",
+    architectureImage: "/projects/firmbrain-architecture.png",
+    architectureCaption:
+      "System architecture: EC2 host, Nginx routing, and the AWS RAG pipeline (S3, Textract, DynamoDB, Bedrock)",
   },
   {
     slug: "employee-management-system",
