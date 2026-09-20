@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: { default: "Shayan Dutta | DevOps & Cloud Portfolio", template: "%s | Shayan Dutta" },
+    title: { default: "Shayan Dutta | Cloud Architect Enthusiast", template: "%s | Shayan Dutta" },
   description: SITE.description,
-  keywords: ["Shayan Dutta", "DevOps", "Cloud", "Java", "Spring Boot", "Docker", "Jenkins", "AWS", "Next.js"],
+  keywords: ["Shayan Dutta", "Cloud", "AWS", "DevOps", "Spec Driven Development", "AI", "Next.js", "FastAPI", "Cloud Architecture"],
   authors: [{ name: SITE.name, url: SITE.url }],
   creator: SITE.name,
   openGraph: {
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE.url,
     siteName: `${SITE.name} Portfolio`,
-    title: "Shayan Dutta | DevOps & Cloud Portfolio",
+    title: "Shayan Dutta | Cloud Architect Enthusiast",
     description: SITE.description,
     // The og:image tags come from app/opengraph-image.jpg + .alt.txt
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shayan Dutta | DevOps & Cloud Portfolio",
+    title: "Shayan Dutta | Cloud Architect Enthusiast",
     description: SITE.description,
     // twitter:image is supplied by app/twitter-image.jpg + .alt.txt
   },
